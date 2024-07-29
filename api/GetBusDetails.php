@@ -84,8 +84,8 @@ if(isset($_POST["submit_start_and_end"])) {
                  "Service: " . $service_name . "<br>" .
                  "Start Point: " . $starting . "<br>" .
                  "End Point: " . $ending . "<br>" .
-                 "Scheduled Start Time: " . $adjusted_start_time->format('H:i:s') . "<br>" .
-                 "Scheduled End Time: " . $adjusted_end_time->format('H:i:s') . "<br>" .
+                 "Scheduled Start Time: " . $adjusted_start_time->format('h:i:sA') . "<br>" .
+                 "Scheduled End Time: " . $adjusted_end_time->format('h:i:sA') . "<br>" .
                  "Current Status: " . $status . "<br>" .
                  "Current Delay: " . $delay . " minutes<br><br>";
             }else{
@@ -93,8 +93,8 @@ if(isset($_POST["submit_start_and_end"])) {
                  "Service: " . $service_name . "<br>" .
                  "Start Point: " . $starting . "<br>" .
                  "End Point: " . $ending . "<br>" .
-                 "Scheduled Start Time: " . $start_scheduled_time->format('H:i:s') . "<br>" .
-                 "Scheduled End Time: " . $end_scheduled_time->format('H:i:s') . "<br>" .
+                 "Scheduled Start Time: " . $start_scheduled_time->format('h:i:sA') . "<br>" .
+                 "Scheduled End Time: " . $end_scheduled_time->format('h:i:sA') . "<br>" .
                  "Current Status: " . $status . "<br>" .
                  "Current Delay: " . $delay . " minutes<br><br>";
             }
