@@ -118,8 +118,6 @@ if(isset($_POST["submit_start_and_end"])) {
     } else {
         echo "No results found.";
     }
-
 }
-
 
 ?>
