@@ -49,6 +49,17 @@ if(isset($_POST["submit_start_and_end"])) {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+        echo "<table>";
+            echo "<tr>";
+            echo "<th>Bus ID</th>";
+            echo "<th>Service</th>";
+            echo "<th>Pickup Point</th>";
+            echo "<th>Scheduled Reaching Time</th>";
+            echo "<th>Drop-Off Point</th>";
+            echo "<th>Scheduled Dropping Time</th>";
+            echo "<th>Current Status</th>";
+            echo "<th>Current Delay</th>";
+            echo "</tr>";
         while($row = $result->fetch_assoc()) {
             $bus_id = $row['bus_id'];
             $start_scheduled_time = new DateTime($row['start_scheduled_time']);
@@ -79,27 +90,31 @@ if(isset($_POST["submit_start_and_end"])) {
             
             $adjusted_end_time = clone $start_scheduled_time;
             $adjusted_end_time->modify('+' . ($end_order * $total_avg_minutes) . ' minutes');
-            
-            echo "Bus ID: " . $bus_id . "<br>" .
-                 "Service: " . $service_name . "<br>" .
-                 "Start Point: " . $starting . "<br>" .
-                 "End Point: " . $ending . "<br>" .
-                 "Scheduled Start Time: " . $adjusted_start_time->format('h:i:sA') . "<br>" .
-                 "Scheduled End Time: " . $adjusted_end_time->format('h:i:sA') . "<br>" .
-                 "Current Status: " . $status . "<br>" .
-                 "Current Delay: " . $delay . " minutes<br><br>";
+            // small h ie;(h) denotes the conversion from 24 hrs to 12 hrs and A at the end indicates the AM and PM
+            echo "<tr>";
+            echo "<td>". $bus_id . "</td>";
+            echo "<td>". $service_name . "</td>";
+            echo "<td>". $starting . "</td>";
+            echo "<td>". $adjusted_start_time->format('h:i:sA') . "</td>";
+            echo "<td>". $ending . "</td>";
+            echo "<td>". $adjusted_end_time->format('h:i:sA') . "</td>";
+            echo "<td>". $status . "</td>";
+            echo "<td>". $delay . " Min</td>";
+            echo "</tr>";
             }else{
-                echo "Bus ID: " . $bus_id . "<br>" .
-                 "Service: " . $service_name . "<br>" .
-                 "Start Point: " . $starting . "<br>" .
-                 "End Point: " . $ending . "<br>" .
-                 "Scheduled Start Time: " . $start_scheduled_time->format('h:i:sA') . "<br>" .
-                 "Scheduled End Time: " . $end_scheduled_time->format('h:i:sA') . "<br>" .
-                 "Current Status: " . $status . "<br>" .
-                 "Current Delay: " . $delay . " minutes<br><br>";
+                echo "<tr>";
+                echo "<td>". $bus_id . "</td>";
+                echo "<td>". $service_name . "</td>";
+                echo "<td>". $starting . "</td>";
+                echo "<td>". $start_scheduled_time->format('h:i:sA') . "</td>";
+                echo "<td>". $ending . "</td>";
+                echo "<td>". $end_scheduled_time->format('h:i:sA') . "</td>";
+                echo "<td>". $status . "</td>";
+                echo "<td>". $delay . " Min</td>";
+                echo "</tr>";
             }
-
         }
+        echo "</table>";
     } else {
         echo "No results found.";
     }
