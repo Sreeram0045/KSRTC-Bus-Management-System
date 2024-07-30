@@ -112,6 +112,10 @@ if (isset($_POST["submit_start_and_end"])) {
                 echo "<td>" . $adjusted_end_time->format('h:i:sA') . "</td>";
                 echo "<td>" . $status . "</td>";
                 echo "<td>" . $delay . " Min</td>";
+                echo '<td><form action="../pages/details.php" method="post" style="display:inline;">
+                          <input type="hidden" name="bus_id" value="'.$bus_id.'">
+                          <input type="submit" value="Details" name="redirect_submit">
+                      </form></td>';
                 echo "</tr>";
             } else {
                 echo "<tr>";
@@ -123,10 +127,13 @@ if (isset($_POST["submit_start_and_end"])) {
                 echo "<td>" . $end_scheduled_time->format('h:i:sA') . "</td>";
                 echo "<td>" . $status . "</td>";
                 echo "<td>" . $delay . " Min</td>";
+                echo '<td><form action="../pages/details.php" method="post" style="display:inline;">
+                          <input type="hidden" name="bus_id" value="'.$bus_id.'">
+                          <input type="submit" value="Details" name="redirect_submit">
+                      </form></td>';
                 echo "</tr>";
             }
         }
-
         echo "</table>";
     } else {
         echo "No results found.";
