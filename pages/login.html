@@ -7,6 +7,24 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+    <nav class="partition1">
+        <label class="switch">
+            <input type="checkbox" onclick="toggleDarkMode()"/>
+            <span class="slider">
+                <span class="circle">
+                <span class="shine shine-1"></span>
+                <span class="shine shine-2"></span>
+                <span class="shine shine-3"></span>
+                <span class="shine shine-4"></span>
+                <span class="shine shine-5"></span>
+                <span class="shine shine-6"></span>
+                <span class="shine shine-7"></span>
+                <span class="shine shine-8"></span>
+                <span class="moon"></span>
+                </span>
+            </span>
+        </label>
+    </nav>
     <section class="form-container">
         <form class="form_main" action="">
             <p class="heading">Login</p>
@@ -22,12 +40,17 @@
             </svg>
             <input placeholder="Password" id="password" class="inputField" type="password">
         </div>     
-        <button id="button">Submit</button>
+        <button id="button" type="submit">Submit</button>
             <div class="signupContainer">
                 <p>Don't have any account?</p>
                 <a href="#">Sign up</a>
             </div>
         </form>
     </section>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
 </body>
 </html>

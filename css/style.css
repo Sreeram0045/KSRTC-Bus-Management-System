@@ -1,142 +1,298 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-*   {
-margin: 0px;
-padding: 0px;
-box-sizing: border-box;
-font-family: "Nunito", sans-serif;
-font-optical-sizing: auto;
+
+:root {
+    --clr-dark: #070a13;
+    --clr-light: #f1f5f9;
+    --clr-background: #ffffff;
+    --clr-text: #000000;
+    --clr-input-border: #adadad;
+    --clr-input-focus: #c772ff;
+    --clr-signup-background: #2e2e2e;
+    --clr-signup-hover: rgba(255, 255, 255, 0.253);
+    --clr-icon: #2e2e2e;
 }
+
+.dark-mode {
+    --clr-light: #070a13;
+    --clr-dark: #f1f5f9;
+    --clr-background: #1a1a1a;
+    --clr-text: #ffffff;
+    --clr-input-border: #333333;
+    --clr-input-focus: #c772ff;
+    --clr-signup-background: #ffffff;
+    --clr-signup-hover: rgba(255, 255, 255, 0.5);
+    --clr-icon: #f1f5f9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--clr-light);
+    color: var(--clr-dark);
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: hidden;
+}
+
 .form-container {
-width: 100vw;
-height: 100vh;
-display: flex;
-align-items: center;
-justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
 .form_main {
-width: 350px;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-background-color: rgb(255, 255, 255);
-padding: 30px 30px 30px 30px;
-border-radius: 30px;
-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.062);
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--clr-background);
+    padding: 30px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.062);
 }
 
 .heading {
-font-size: 2.5em;
-color: #2e2e2e;
-font-weight: 700;
-margin: 15px 0 30px 0;
+    font-size: 2.5em;
+    color: var(--clr-text);
+    font-weight: 700;
+    margin: 15px 0 30px 0;
 }
 
 .inputContainer {
-width: 100%;
-position: relative;
-display: flex;
-align-items: center;
-justify-content: center;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .inputIcon {
     position: absolute;
-    left: 10px;
+    left: 5px;
+    fill: var(--clr-icon);
 }
 
 .inputField {
-width: 100%;
-height: 40px;
-background-color: transparent;
-border: none;
-border-bottom: 2px solid rgb(173, 173, 173);
-border-radius: 30px;
-margin: 10px 0;
-color: black;
-font-size: .8em;
-font-weight: 500;
-box-sizing: border-box;
-padding-left: 30px;
+    width: 100%;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid var(--clr-input-border);
+    border-radius: 30px;
+    margin: 10px 0;
+    color: var(--clr-text);
+    font-size: .8em;
+    font-weight: 500;
+    box-sizing: border-box;
+    padding-left: 30px;
 }
 
 .inputField:focus {
-outline: none;
-border-bottom: 2px solid rgb(199, 114, 255);
+    outline: none;
+    border-bottom: 2px solid var(--clr-input-focus);
 }
 
 .inputField::placeholder {
-color: rgb(80, 80, 80);
-font-size: 1em;
-font-weight: 500;
+    color: rgb(80, 80, 80);
+    font-size: 1em;
+    font-weight: 500;
 }
 
 #button {
-position: relative;
-width: 100%;
-border: 2px solid #8000ff;
-background-color: #8000ff;
-height: 40px;
-color: white;
-font-size: 1em;
-font-weight: 500;
-letter-spacing: 1px;
-border-radius: 30px;
-margin: 10px;
-cursor: pointer;
-overflow: hidden;
+    position: relative;
+    width: 100%;
+    border: 2px solid #8000ff;
+    background-color: #8000ff;
+    height: 40px;
+    color: white;
+    font-size: 1em;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 30px;
+    margin: 10px;
+    cursor: pointer;
+    overflow: hidden;
+    font-family: "Nunito", sans-serif;
 }
 
 #button::after {
-content: "";
-position: absolute;
-background-color: rgba(255, 255, 255, 0.253);
-height: 100%;
-width: 150px;
-top: 0;
-left: -200px;
-border-bottom-right-radius: 100px;
-border-top-left-radius: 100px;
-filter: blur(10px);
-transition-duration: .5s;
+    content: "";
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.253);
+    height: 100%;
+    width: 150px;
+    top: 0;
+    left: -200px;
+    border-bottom-right-radius: 100px;
+    border-top-left-radius: 100px;
+    filter: blur(10px);
+    transition-duration: .5s;
 }
 
 #button:hover::after {
-transform: translateX(600px);
-transition-duration: .5s;
+    transform: translateX(600px);
+    transition-duration: .5s;
 }
 
 .signupContainer {
-margin: 0;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 20px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
 }
 
 .signupContainer p {
-font-size: .9em;
-font-weight: 500;
-color: black;
+    font-size: .9em;
+    font-weight: 500;
+    color: var(--clr-text);
 }
 
 .signupContainer a {
     font-size: 0.9rem;
     font-weight: 500;
-    background-color: #2e2e2e;
-    color: white;
+    background-color: var(--clr-signup-background);
+    color: var(--clr-light);
     text-decoration: none;
     padding: 12px 22.5px;
     border-radius: 20px;
     display: inline-block;
-    transition: transform 0.2s ease;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    font-family: "Nunito", sans-serif;
 }
 
 .signupContainer a:hover {
     transform: translateY(-2px);
+    background-color: var(--clr-signup-hover);
 }
 
 .signupContainer a:active {
     transform: translateY(-1px);
+    background-color: var(--clr-signup-hover);
+}
+
+.partition1 {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px; /* Add padding to create margin around the switch */
+    box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
+}
+
+.switch {
+    font-size: 17px;
+    position: relative;
+    display: inline-block;
+    width: 3.5em;
+    height: 2em;
+    margin-right: 20px; /* Add right margin */
+    margin-top: 10px; /* Add top margin */
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #333;
+    transition: 0.4s;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.circle {
+    position: absolute;
+    content: "";
+    height: 1.4em;
+    width: 1.4em;
+    border-radius: 20px;
+    left: 0.3em;
+    bottom: 0.3em;
+    background-color: #fff000;
+    transform: rotate(360deg) translateX(0);
+    transition: 0.4s;
+}
+
+.switch input:checked + .slider .circle {
+    transform: rotate(0deg) translateX(1.5em) !important;
+}
+
+.switch input:checked + .slider .circle .shine {
+    transform: translate(0%, 0%) !important;
+}
+
+.switch input:checked + .slider .circle .moon {
+    left: -10%;
+    opacity: 1;
+    transform: translateY(-60%);
+}
+
+.moon {
+    position: absolute;
+    left: -100%;
+    top: 50%;
+    opacity: 0;
+    background-color: #333;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 99999px;
+    transform: translateY(-50%);
+    transition: all 0.4s;
+}
+
+.shine {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0.25rem;
+    height: 0.25rem;
+    background-color: #fff000;
+    border-radius: 1rem;
+    transition: all 0.4s;
+}
+
+.shine-1 {
+    transform: translate(-50%, -375%);
+}
+.shine-2 {
+    transform: translate(175%, -275%);
+}
+.shine-3 {
+    transform: translate(275%, -50%);
+}
+.shine-4 {
+    transform: translate(175%, 175%);
+}
+.shine-5 {
+    transform: translate(-50%, 275%);
+}
+.shine-6 {
+    transform: translate(-275%, 175%);
+}
+.shine-7 {
+    transform: translate(-375%, -50%);
+}
+.shine-8 {
+    transform: translate(-275%, -275%);
 }
