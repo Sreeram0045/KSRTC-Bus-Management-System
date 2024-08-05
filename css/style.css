@@ -7,8 +7,7 @@
     --clr-text: #000000;
     --clr-input-border: #adadad;
     --clr-input-focus: #c772ff;
-    --clr-signup-background: #2e2e2e;
-    --clr-signup-hover: rgba(255, 255, 255, 0.253);
+    --clr-signup-background: rgb(0 0 0 / 95%);
     --clr-icon: #2e2e2e;
 }
 
@@ -19,8 +18,7 @@
     --clr-text: #ffffff;
     --clr-input-border: #333333;
     --clr-input-focus: #c772ff;
-    --clr-signup-background: #ffffff;
-    --clr-signup-hover: rgba(255, 255, 255, 0.5);
+    --clr-signup-background: rgb(255, 255, 255);
     --clr-icon: #f1f5f9;
 }
 
@@ -169,18 +167,17 @@ body {
     padding: 12px 22.5px;
     border-radius: 20px;
     display: inline-block;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform 0.2s ease;
     font-family: "Nunito", sans-serif;
 }
 
-.signupContainer a:hover {
+.signupContainer a:hover,
+.signupContainer a:focus {
     transform: translateY(-2px);
-    background-color: var(--clr-signup-hover);
 }
 
 .signupContainer a:active {
     transform: translateY(-1px);
-    background-color: var(--clr-signup-hover);
 }
 
 .partition1 {
