@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="shortcut icon" href="./assets/Designer.png" type="image/x-icon">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
@@ -24,6 +25,10 @@
         body {
             font-family: "Nunito", sans-serif;
             background-color: gainsboro;
+        }
+
+        button {
+            font-family: "Nunito", sans-serif;
         }
 
         .grid-section {
@@ -51,6 +56,7 @@
         .heading-wrapper {
             display: flex;
             justify-content: center;
+            margin: 5px 0px;
         }
 
         .form-wrapper {
@@ -59,6 +65,14 @@
             height: 25rem;
             padding: 25px 50px;
             border-radius: 12px;
+            margin: 0px 10px;
+        }
+
+        .form-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin: 7px 0px;
         }
 
         .button-wrapper {
@@ -77,6 +91,7 @@
             border-radius: 0.25rem;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
+            font-family: "Nunito", sans-serif;
         }
 
         select::-ms-expand {
@@ -212,7 +227,9 @@
 </head>
 
 <body>
-    <nav class="header-section"></nav>
+    <nav class="header-section">
+
+    </nav>
     <section class="grid-section">
         <div class="section-wrapper">
             <div class="form-wrapper">
@@ -220,7 +237,7 @@
                     <h3>FIND YOUR BUS!!!</h3>
                 </div>
                 <form action="./api/getBusDetails.php" method="post">
-                    <div>
+                    <div class="form-content-wrapper">
                         <label for="start_name_id">Enter start point: </label>
                         <div class="select-wrapper">
                             <select name="start_point" id="start_name_id">
@@ -241,7 +258,7 @@
                             </select>
                         </div>
                     </div>
-                    <div>
+                    <div class="form-content-wrapper">
                         <label for="end_name_id">Enter end point: </label>
                         <div class="select-wrapper">
                             <select name="end_point" id="end_name_id">
@@ -262,7 +279,7 @@
                             </select>
                         </div>
                     </div>
-                    <div>
+                    <div class="form-content-wrapper">
                         <label for="service_type_id">Select the Service type: </label>
                         <div class="select-wrapper">
                             <select name="service_type" id="service_type_id">
