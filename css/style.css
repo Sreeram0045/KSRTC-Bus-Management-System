@@ -184,8 +184,10 @@ body {
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    padding: 10px; /* Add padding to create margin around the switch */
-    box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
+    padding: 10px;
+    /* Add padding to create margin around the switch */
+    box-sizing: border-box;
+    /* Ensure padding is included in the element's total width and height */
 }
 
 .switch {
@@ -194,8 +196,10 @@ body {
     display: inline-block;
     width: 3.5em;
     height: 2em;
-    margin-right: 20px; /* Add right margin */
-    margin-top: 10px; /* Add top margin */
+    margin-right: 20px;
+    /* Add right margin */
+    margin-top: 10px;
+    /* Add top margin */
 }
 
 .switch input {
@@ -230,15 +234,15 @@ body {
     transition: 0.4s;
 }
 
-.switch input:checked + .slider .circle {
+.switch input:checked+.slider .circle {
     transform: rotate(0deg) translateX(1.5em) !important;
 }
 
-.switch input:checked + .slider .circle .shine {
+.switch input:checked+.slider .circle .shine {
     transform: translate(0%, 0%) !important;
 }
 
-.switch input:checked + .slider .circle .moon {
+.switch input:checked+.slider .circle .moon {
     left: -10%;
     opacity: 1;
     transform: translateY(-60%);
@@ -272,24 +276,31 @@ body {
 .shine-1 {
     transform: translate(-50%, -375%);
 }
+
 .shine-2 {
     transform: translate(175%, -275%);
 }
+
 .shine-3 {
     transform: translate(275%, -50%);
 }
+
 .shine-4 {
     transform: translate(175%, 175%);
 }
+
 .shine-5 {
     transform: translate(-50%, 275%);
 }
+
 .shine-6 {
     transform: translate(-275%, 175%);
 }
+
 .shine-7 {
     transform: translate(-375%, -50%);
 }
+
 .shine-8 {
     transform: translate(-275%, -275%);
 }

@@ -6,237 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="shortcut icon" href="./assets/Designer.png" type="image/x-icon">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-
-        :root {
-            --background: linear-gradient(to left, #34495e 3rem, #2c3e50 3rem);
-            --background-selected: linear-gradient(30deg, #f39c12 30%, #f1c40f);
-            --text-color: white;
-            --text-color-selected: black;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: "Nunito", sans-serif;
-            background-color: gainsboro;
-        }
-
-        button {
-            font-family: "Nunito", sans-serif;
-        }
-
-        .grid-section {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .image-div {
-            height: 100vh;
-        }
-
-        .image-div img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-            border-radius: 12px;
-        }
-
-        .section-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .heading-wrapper {
-            display: flex;
-            justify-content: center;
-            margin: 5px 0px;
-        }
-
-        .form-wrapper {
-            background-color: white;
-            width: 25rem;
-            height: 25rem;
-            padding: 25px 50px;
-            border-radius: 12px;
-            margin: 0px 10px;
-        }
-
-        .form-content-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-            margin: 7px 0px;
-        }
-
-        .button-wrapper {
-            display: flex;
-            justify-content: center;
-        }
-
-        select {
-            appearance: none;
-            border: 0;
-            outline: 0;
-            background: var(--background);
-            color: var(--text-color);
-            padding: 1em;
-            width: 18rem;
-            border-radius: 0.25rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            font-family: "Nunito", sans-serif;
-        }
-
-        select::-ms-expand {
-            display: none;
-        }
-
-        select:focus {
-            outline: none;
-        }
-
-        select option {
-            background: var(--background-selected);
-            color: var(--text-color-selected);
-        }
-
-        select:focus option:checked {
-            background: var(--background);
-            color: var(--text-color-selected);
-        }
-
-        .select-wrapper {
-            position: relative;
-            display: inline-block;
-            width: 100%;
-        }
-
-        .select-wrapper::after {
-            content: "\25BC";
-            position: absolute;
-            right: 1.5rem;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            transition: color 0.3s ease;
-        }
-
-        .select-wrapper:hover::after {
-            color: #f39c12;
-            animation: bounce 0.5s infinite;
-        }
-
-        @keyframes bounce {
-            25% {
-                transform: translateY(5px);
-            }
-
-            75% {
-                transform: translateY(-5px);
-            }
-        }
-
-        .searchbutton {
-            position: relative;
-            border: none;
-            background: transparent;
-            padding: 0;
-            cursor: pointer;
-            outline-offset: 4px;
-            transition: filter 250ms;
-            user-select: none;
-            touch-action: manipulation;
-            margin-top: 1rem;
-        }
-
-        .shadow {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 12px;
-            background: hsl(0deg 0% 0% / 0.25);
-            will-change: transform;
-            transform: translateY(2px);
-            transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
-        }
-
-        .edge {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 12px;
-            background: linear-gradient(to left,
-                    hsl(340deg 100% 16%) 0%,
-                    hsl(340deg 100% 32%) 8%,
-                    hsl(340deg 100% 32%) 92%,
-                    hsl(340deg 100% 16%) 100%);
-        }
-
-        .front {
-            display: block;
-            position: relative;
-            padding: 8px 18px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            color: white;
-            background: hsl(345deg 100% 47%);
-            will-change: transform;
-            transform: translateY(-4px);
-            transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
-        }
-
-        .searchbutton:hover {
-            filter: brightness(110%);
-        }
-
-        .searchbutton:hover .front {
-            transform: translateY(-6px);
-            transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
-        }
-
-        .searchbutton:active .front {
-            transform: translateY(-2px);
-            transition: transform 34ms;
-        }
-
-        .searchbutton:hover .shadow {
-            transform: translateY(4px);
-            transition: transform 250ms cubic-bezier(.3, .7, .4, 1.5);
-        }
-
-        .searchbutton:active .shadow {
-            transform: translateY(1px);
-            transition: transform 34ms;
-        }
-
-        .searchbutton:focus:not(:focus-visible) {
-            outline: none;
-        }
-    </style>
+    <link rel="stylesheet" href="./css/homestyle.css">
 </head>
 
 <body>
-    <nav class="header-section">
-
-    </nav>
+    <nav class="header-section"></nav>
     <section class="grid-section">
         <div class="section-wrapper">
             <div class="form-wrapper">
                 <div class="heading-wrapper">
                     <h3>FIND YOUR BUS!!!</h3>
                 </div>
-                <form action="./api/getBusDetails.php" method="post">
+                <!-- action="./api/getBusDetails.php" method="post" -->
+                <form id="busDetailInput">
                     <div class="form-content-wrapper">
                         <label for="start_name_id">Enter start point: </label>
                         <div class="select-wrapper">
@@ -305,9 +87,78 @@
             <img src="./assets/ksrtc.jpg" alt="ksrtc">
         </div>
     </section>
-    <section class="result-container"></section>
+    <section id="result-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Bus ID</th>
+                    <th>Service</th>
+                    <th>Pickup Point</th>
+                    <th>Scheduled Reaching Time</th>
+                    <th>Drop-Off Point</th>
+                    <th>Scheduled Dropping Time</th>
+                    <th>Current Status</th>
+                    <th>Current Delay</th>
+                    <th>Know More!</th>
+                </tr>
+            </thead>
+            <tbody id="result-table-body">
+                <tr>
+                    <td data-title="Bus ID">KSRTC1234</td>
+                    <td data-title="Service">Swift</td>
+                    <td data-title="Pickup Point">Thiruvananthapuram</td>
+                    <td data-title="Scheduled Reaching Time">08:00 AM</td>
+                    <td data-title="Drop-Off Point">Kollam</td>
+                    <td data-title="Scheduled Dropping Time">09:30 AM</td>
+                    <td data-title="Current Status">On Time</td>
+                    <td data-title="Current Delay">0 Min</td>
+                    <td>
+                        <form action="../pages/details.php" method="post">
+                            <input type="hidden" name="bus_id" value="KSRTC1234">
+                            <button type="submit" name="redirect_submit" class="details-button">Details</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-title="Bus ID">KSRTC1234</td>
+                    <td data-title="Service">Swift</td>
+                    <td data-title="Pickup Point">Thiruvananthapuram</td>
+                    <td data-title="Scheduled Reaching Time">08:00 AM</td>
+                    <td data-title="Drop-Off Point">Kollam</td>
+                    <td data-title="Scheduled Dropping Time">09:30 AM</td>
+                    <td data-title="Current Status">On Time</td>
+                    <td data-title="Current Delay">0 Min</td>
+                    <td>
+                        <form action="../pages/details.php" method="post">
+                            <input type="hidden" name="bus_id" value="KSRTC1234">
+                            <button type="submit" name="redirect_submit" class="details-button">Details</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-title="Bus ID">KSRTC1234</td>
+                    <td data-title="Service">Swift</td>
+                    <td data-title="Pickup Point">Thiruvananthapuram</td>
+                    <td data-title="Scheduled Reaching Time">08:00 AM</td>
+                    <td data-title="Drop-Off Point">Kollam</td>
+                    <td data-title="Scheduled Dropping Time">09:30 AM</td>
+                    <td data-title="Current Status">On Time</td>
+                    <td data-title="Current Delay">0 Min</td>
+                    <td>
+                        <form action="../pages/details.php" method="post">
+                            <input type="hidden" name="bus_id" value="KSRTC1234">
+                            <button type="submit" name="redirect_submit" class="details-button">Details</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+    <section id="error-container">
+    </section>
     <section class="about-container"></section>
     <footer class="footer-container"></footer>
+    <script src="js/apiGetBusDetailsHandling.js"></script>
 </body>
 
 </html>
