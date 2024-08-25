@@ -9,7 +9,7 @@ async function fetchdata(event) {
     const formDataObj = Object.fromEntries(formData.entries());
     formDataObj.submit_start_and_end = true;
     try {
-        let responseFetch = await fetch("./api/apidetails.php", {
+        let responseFetch = await fetch("./api/apiGetBusDetails.php", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
