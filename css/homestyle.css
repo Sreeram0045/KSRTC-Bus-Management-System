@@ -256,14 +256,6 @@ thead th {
     font-size: 1.15em;
 }
 
-table thead tr th:first-child {
-    border-top-left-radius: 12px;
-}
-
-table tbody tr:last-child td:last-child {
-    border-bottom-right-radius: 12px;
-}
-
 tbody tr:nth-child(even) {
     background-color: hsl(210, 29%, 31%);
 }
@@ -392,7 +384,7 @@ table td {
     filter: brightness(.8);
 }
 
-/* #error-container,
-        #result-container {
-            display: none;
-        } */
+#error-container,
+#result-container {
+    display: none;
+}
