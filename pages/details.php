@@ -1,6 +1,7 @@
 <?php
 require_once "../connection.php";
-
+echo "<link rel='shortcut icon' href='../assets/Designer.png' type='image/x-icon'>";
+echo "<link rel='stylesheet' type='text/css' href='../css/detailspagestyle.css' />";
 if (isset($_POST['redirect_submit'])) {
     $bus_id = $_POST['bus_id'];
 
@@ -119,94 +120,3 @@ if (isset($_POST['redirect_submit'])) {
 ?>
 
 <!-- CSS for styling the page -->
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    body {
-        font-family: "Nunito", sans-serif;
-        background-color: hsl(210, 19%, 54%);
-        color: white;
-    }
-
-    .heading-container {
-        display: flex;
-        flex-direction: column;
-        gap: 0.3rem;
-        padding: 0px 25px;
-        margin-top: 20px;
-    }
-
-    h2 {
-        color: #333;
-    }
-
-    .days-circles {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-
-    .day-circle {
-        width: 35px;
-        height: 35px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    .day-circle.active {
-        background-color: green;
-    }
-
-    .day-circle.inactive {
-        background-color: red;
-    }
-
-    .table-container {
-        padding: 10px;
-    }
-
-    table {
-        margin: 5px 0px;
-        padding: 5px 10px;
-        width: 100%;
-    }
-
-    table th,
-    table td {
-        padding: 1rem;
-        text-align: center;
-    }
-
-    table tbody {
-        background-color: #34495e;
-        color: white;
-    }
-
-    table tr {
-        padding: .45em;
-    }
-
-    thead tr {
-        background-color: #f39c12;
-    }
-
-    thead th {
-        color: #2c3e50;
-        font-size: 1.15em;
-    }
-
-    tbody tr:nth-child(even) {
-        background-color: hsl(210, 29%, 31%);
-    }
-</style>
