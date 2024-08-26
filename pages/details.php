@@ -1,7 +1,14 @@
 <?php
 require_once "../connection.php";
-echo "<link rel='shortcut icon' href='../assets/Designer.png' type='image/x-icon'>";
-echo "<link rel='stylesheet' type='text/css' href='../css/detailspagestyle.css' />";
+echo "<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Details</title>
+    <link rel='shortcut icon' href='../assets/Designer.png' type='image/x-icon'>
+    <link rel='stylesheet' type='text/css' href='../css/detailspagestyle.css' />
+</head>";
 if (isset($_POST['redirect_submit'])) {
     $bus_id = $_POST['bus_id'];
 

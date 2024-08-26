@@ -7,7 +7,7 @@ async function fetchdata(event) {
     console.log("Form submitted");
     const formData = new FormData(form);
     const formDataObj = Object.fromEntries(formData.entries());
-    formDataObj.submit_start_and_end = true;
+    // formDataObj.submit_start_and_end = true;
     try {
         let responseFetch = await fetch("./api/apiGetBusDetails.php", {
             method: "POST",
@@ -35,7 +35,13 @@ async function fetchdata(event) {
             resultContainer.style.display = 'none';
             errorContainer.innerHTML = "<h1>OOPS!! Sorry no data found</h1>";
             errorContainer.scrollIntoView({ behavior: 'smooth' });
-        } else {
+        } else if (data.length === 0 || (data.length > 0 && data[0].hasOwnProperty('error_response'))) {
+            errorContainer.style.display = 'block';
+            resultContainer.style.display = 'none';
+            errorContainer.innerHTML = "<h1>Invalid Submission</h1>";
+            errorContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+        else {
             // Buses available
             errorContainer.style.display = 'none';
             resultContainer.style.display = 'block';
