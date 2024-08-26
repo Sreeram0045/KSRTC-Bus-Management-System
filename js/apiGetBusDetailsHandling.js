@@ -7,7 +7,7 @@ async function fetchdata(event) {
     console.log("Form submitted");
     const formData = new FormData(form);
     const formDataObj = Object.fromEntries(formData.entries());
-    // formDataObj.submit_start_and_end = true;
+    formDataObj.submit_start_and_end = true;
     try {
         let responseFetch = await fetch("./api/apiGetBusDetails.php", {
             method: "POST",
