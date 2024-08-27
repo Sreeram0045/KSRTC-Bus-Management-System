@@ -15,7 +15,6 @@
 
 body {
     font-family: "Nunito", sans-serif;
-    background-color: gainsboro;
 }
 
 button {
@@ -25,6 +24,7 @@ button {
 .grid-section {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    background-color: gainsboro;
 }
 
 .image-div {
@@ -387,4 +387,62 @@ table td {
 #error-container,
 #result-container {
     display: none;
+}
+
+/* The style for about-section */
+
+.about-us-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    color: white;
+    background-color: hsl(215, 81%, 53%);
+    width: 100vw;
+    height: 100vh;
+}
+
+.about-us-container h1 {
+    /* color: hsl(200, 90%, 50%); */
+    letter-spacing: 4px;
+    color: hsl(5, 100%, 65%);
+}
+
+.about-us-grid-division1,
+.about-us-grid-division2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 3rem;
+}
+
+.about-us-grid-division1 {
+    gap: 1rem;
+}
+
+.about-us-grid-division2 {
+    gap: 2rem;
+}
+
+.about-us-grid--division2-img-container {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.about-us-grid--division2-img-container img {
+    width: 50px;
+    height: 50px;
+}
+
+.our-mission-container,
+.key-features-container,
+.choose-us-container {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.key-features-container div ul li span {
+    font-weight: 800;
 }
