@@ -24,7 +24,9 @@ button {
 .grid-section {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    background-color: gainsboro;
+    /* background-color: gainsboro; */
+    background-color: hsl(210, 29%, 34%);
+    border-radius: 12px;
 }
 
 .image-div {
@@ -223,9 +225,9 @@ select:focus option:checked {
     padding: 2rem;
     background-color: hsl(210, 29%, 24%);
     /* Dark background for contrast */
-    border-radius: 0.5rem;
+    border-radius: 12px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    margin-top: 0.5rem;
+    margin-top: 2px;
     color: white;
 }
 
@@ -396,15 +398,22 @@ table td {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     color: white;
-    background-color: hsl(215, 81%, 53%);
-    width: 100vw;
-    height: 100vh;
+    /* background-color: hsl(215, 81%, 63%); */
+    background-color: hsl(210, 29%, 30%);
+    /* width: 100vw; */
+    /* height: 100vh; */
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    margin-top: 2px;
+    padding: 3rem 5rem;
 }
 
 .about-us-container h1 {
     /* color: hsl(200, 90%, 50%); */
     letter-spacing: 4px;
-    color: hsl(5, 100%, 65%);
+    /* color: hsl(5, 100%, 65%); */
+    color: hsl(215, 81%, 63%);
 }
 
 .about-us-grid-division1,
@@ -445,4 +454,81 @@ table td {
 
 .key-features-container div ul li span {
     font-weight: 800;
+}
+
+/* Following are the footer styles */
+
+.footer-container {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    padding: 5rem 3rem;
+    background-color: #152F4F;
+    color: white;
+    gap: 2rem;
+    border-radius: 12px;
+    margin-top: 2px;
+}
+
+.footer-container .row1 {
+    display: flex;
+    gap: 3rem;
+}
+
+.footer-container .row2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-container p {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.footer-header-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    gap: 2rem;
+}
+
+.footer-header-container-heading-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-link-container ul li {
+    list-style-type: none;
+}
+
+.footer-link-container ul li a {
+    color: white;
+    transition: color 0.2s;
+    text-decoration: none;
+}
+
+.footer-link-container ul li a:hover {
+    color: #4180CB;
+}
+
+.footer-header-container-logo-container a svg path {
+    transition: fill 0.2s;
+}
+
+.footer-header-container-logo-container a svg:hover path {
+    fill: #4180CB;
+}
+
+.footer-location-container p:not(:first-child) i {
+    transition: color 0.2s, text-decoration 0.2s;
+    user-select: all;
+}
+
+.footer-location-container p:not(:first-child):hover i {
+    text-decoration: underline;
+    color: #4180CB;
+}
+
+.footer-copyright-container p {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 15px;
+    margin-top: 30px;
 }
