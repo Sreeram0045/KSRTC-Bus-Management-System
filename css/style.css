@@ -9,6 +9,7 @@
     --clr-input-focus: #c772ff;
     --clr-signup-background: rgb(0 0 0 / 95%);
     --clr-icon: #2e2e2e;
+    --placeholder-color: rgb(80, 80, 80);
 }
 
 .dark-mode {
@@ -20,6 +21,7 @@
     --clr-input-focus: #c772ff;
     --clr-signup-background: rgb(255, 255, 255);
     --clr-icon: #f1f5f9;
+    --placeholder-color: rgb(80, 80, 80);
 }
 
 * {
@@ -102,7 +104,7 @@ body {
 }
 
 .inputField::placeholder {
-    color: rgb(80, 80, 80);
+    color: var(--placeholder-color);
     font-size: 1em;
     font-weight: 500;
 }
