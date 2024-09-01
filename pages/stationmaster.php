@@ -5,20 +5,60 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
     header('Location: ./login.html');
     exit;
 }
+
+require_once "../connection.php";
+
+$station_name = $_SESSION['station_master_station'];
+
+$query = "SELECT DISTINCT
+    b.bus_id,
+    stype.service_name,
+    st_start.station_name AS start_station,
+    b.start_scheduled_time,
+    st_end.station_name AS end_station,
+    b.end_scheduled_time,
+    s.state AS status,
+    COALESCE(d.delay, 0) AS delay
+FROM 
+    bus b
+JOIN 
+    stop_order so ON b.bus_id = so.bus_id
+JOIN 
+    station st ON so.station_id = st.station_id
+JOIN 
+    station st_start ON b.start_point_id = st_start.station_id
+JOIN 
+    station st_end ON b.end_point_id = st_end.station_id
+JOIN 
+    service_type stype ON b.service_id = stype.service_id
+LEFT JOIN
+    status s ON b.bus_id = s.bus_id
+LEFT JOIN
+    delay d ON b.bus_id = d.bus_id AND st.station_id = d.current_station_id
+WHERE 
+    st.station_name = ?
+ORDER BY 
+    b.start_scheduled_time";
+
+$stmt = $connection->prepare($query);
+$stmt->bind_param("s", $station_name);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Station-Master-Home-Page</title>
+    <title>Station Master Home Page</title>
     <link rel="stylesheet" href="../css/stationmasterpagestyle.css">
 </head>
 
 <body>
     <header>
-        <h1>'x' DIPPO</h1>
+        <h1><?php echo htmlspecialchars($station_name); ?> Depot</h1>
     </header>
     <main>
         <h2>Welcome, Station Master!</h2>
@@ -26,25 +66,40 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
             <thead>
                 <tr>
                     <th>Service ID</th>
+                    <th>Service Name</th>
                     <th>Starting Point</th>
                     <th>Start Time</th>
                     <th>Ending Point</th>
                     <th>End Time</th>
+                    <th>Status</th>
+                    <th>Delay (minutes)</th>
                     <th>Mark Delay</th>
                     <th>Mark Status</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>Station A</td>
-                    <td>08:00 AM</td>
-                    <td>Station B</td>
-                    <td>09:00 AM</td>
-                    <td><button class="button" onclick="openPopup('delay')">Mark Delay</button></td>
-                    <td><button class="button" onclick="openPopup('status')">Mark Status</button></td>
-                </tr>
-                <!-- Add more rows as needed -->
+                <?php
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+                        $start_time_to_be_formatted = new DateTime($row['start_scheduled_time']);
+                        $end_time_to_be_formatted = new DateTime($row['end_scheduled_time']);
+                        echo "<tr>";
+                        echo "<td>" . htmlspecialchars($row['bus_id']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['service_name']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['start_station']) . "</td>";
+                        echo "<td>" . htmlspecialchars($start_time_to_be_formatted->format('h:i:s A')) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['end_station']) . "</td>";
+                        echo "<td>" . htmlspecialchars($end_time_to_be_formatted->format('h:i:s A')) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+                        echo "<td>" . htmlspecialchars($row['delay']) . "</td>";
+                        echo '<td><button class="button" onclick="openPopup(\'delay\', \'' . $row['bus_id'] . '\')">Mark Delay</button></td>';
+                        echo '<td><button class="button" onclick="openPopup(\'status\', \'' . $row['bus_id'] . '\')">Mark Status</button></td>';
+                        echo "</tr>";
+                    }
+                } else {
+                    echo "<tr><td colspan='10'>No buses found for this station.</td></tr>";
+                }
+                ?>
             </tbody>
         </table>
     </main>
@@ -58,12 +113,11 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
     <!-- Delay Pop-up -->
     <div class="popup" id="delayPopup">
         <span class="close-btn" onclick="closePopup()">&times;</span>
-        <h3>Mark Delay</h3>
+        <h3>Mark Delay for Bus <span id="busIdForDelay"></span></h3>
         <div class="container">
-            <p><strong>Service Name:</strong> XYZ</p>
-            <p><strong>Current Delay:</strong> 10 minutes</p>
             <form onsubmit="submitDelay(); return false;">
                 <label for="delay">Specify Delay:</label><br>
+                <input type="hidden" name="bus_id" id="hidden_bus_id_for_delay">
                 <input type="text" id="delay" name="delay" placeholder="Enter delay in minutes" required><br>
                 <input type="submit" value="Submit">
             </form>
@@ -73,14 +127,12 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
     <!-- Status Pop-up -->
     <div class="popup" id="statusPopup">
         <span class="close-btn" onclick="closePopup()">&times;</span>
-        <h3>Mark Status</h3>
+        <h3>Mark Status for Bus <span id="busIdForStatus"></span></h3>
         <div class="container">
-            <p><strong>Service Name:</strong> XYZ</p>
-            <p><strong>Current Status:</strong> Running</p>
             <form onsubmit="submitStatus(); return false;">
                 <p><strong>Specify Status:</strong></p>
-                <input type="hidden" name="bus_id">
-                <select name="status_of_bus" id="">
+                <input type="hidden" name="bus_id" id="hidden_bus_id_for_status">
+                <select name="status_of_bus">
                     <option value="Valid">Running</option>
                     <option value="Invalid">Facing Problem</option>
                 </select>
@@ -90,18 +142,14 @@ if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
     </div>
 
     <script>
-        function openPopup(type) {
-            // Clear previous content based on the type of pop-up
+        function openPopup(type, busId) {
+            // Use the busId to load specific data for the pop-up
             if (type === 'delay') {
-                const delayInput = document.getElementById('delay');
-                if (delayInput) {
-                    delayInput.value = ''; // Clear the delay input field
-                }
+                document.getElementById('busIdForDelay').innerText = busId;
+                document.getElementById('hidden_bus_id_for_delay').value = busId;
             } else if (type === 'status') {
-                const statusRadio = document.querySelector('input[name="status"]:checked');
-                if (statusRadio) {
-                    statusRadio.checked = false; // Uncheck any selected radio button
-                }
+                document.getElementById('busIdForStatus').innerText = busId;
+                document.getElementById('hidden_bus_id_for_status').value = busId;
             }
 
             // Show overlay and corresponding pop-up
