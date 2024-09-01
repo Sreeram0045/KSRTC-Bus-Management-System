@@ -1,7 +1,15 @@
-body {
-    font-family: Arial, sans-serif;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --placeholder-color: rgb(80, 80, 80);
+}
+
+body {
+    font-family: Arial, sans-serif;
     background-color: #ffffff;
     color: #333;
 }
@@ -97,6 +105,10 @@ footer {
     margin-top: 5px;
 }
 
+#delay::placeholder {
+    color: var(--placeholder-color);
+}
+
 .popup input[type="submit"] {
     background-color: #d32f2f;
     color: #fff;
@@ -133,4 +145,9 @@ footer {
 
 .overlay.active {
     display: block;
+}
+
+#error-result-status-popup {
+    display: none;
+    color: red;
 }
