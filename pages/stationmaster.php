@@ -90,7 +90,7 @@ $result = $stmt->get_result();
                         echo "<td>" . htmlspecialchars($start_time_to_be_formatted->format('h:i:s A')) . "</td>";
                         echo "<td>" . htmlspecialchars($row['end_station']) . "</td>";
                         echo "<td>" . htmlspecialchars($end_time_to_be_formatted->format('h:i:s A')) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+                        echo "<td>" . htmlspecialchars(ucwords($row['status'])) . "</td>";
                         echo "<td>" . htmlspecialchars($row['delay']) . "</td>";
                         echo '<td><button class="button" onclick="openPopup(\'delay\', \'' . $row['bus_id'] . '\')">Mark Delay</button></td>';
                         echo '<td><button class="button" onclick="openPopup(\'status\', \'' . $row['bus_id'] . '\')">Mark Status</button></td>';
@@ -115,7 +115,7 @@ $result = $stmt->get_result();
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <h3>Mark Delay for Bus <span id="busIdForDelay"></span></h3>
         <div class="container">
-            <form onsubmit="submitDelay(); return false;">
+            <form id="delayForm">
                 <label for="delay">Specify Delay:</label><br>
                 <input type="hidden" name="bus_id" id="hidden_bus_id_for_delay">
                 <input type="text" id="delay" name="delay" placeholder="Enter delay in minutes" required><br>
@@ -129,54 +129,19 @@ $result = $stmt->get_result();
         <span class="close-btn" onclick="closePopup()">&times;</span>
         <h3>Mark Status for Bus <span id="busIdForStatus"></span></h3>
         <div class="container">
-            <form onsubmit="submitStatus(); return false;">
+            <form id="statusForm">
                 <p><strong>Specify Status:</strong></p>
                 <input type="hidden" name="bus_id" id="hidden_bus_id_for_status">
-                <select name="status_of_bus">
-                    <option value="Valid">Running</option>
-                    <option value="Invalid">Facing Problem</option>
+                <select name="status_of_bus" id="status_of_bus">
+                    <option value="active">Running</option>
+                    <option value="inactive">Facing Problem</option>
                 </select>
+                <span id="error-result-status-popup"></span>
                 <input type="submit" value="Submit" name="submit">
             </form>
         </div>
     </div>
-
-    <script>
-        function openPopup(type, busId) {
-            // Use the busId to load specific data for the pop-up
-            if (type === 'delay') {
-                document.getElementById('busIdForDelay').innerText = busId;
-                document.getElementById('hidden_bus_id_for_delay').value = busId;
-            } else if (type === 'status') {
-                document.getElementById('busIdForStatus').innerText = busId;
-                document.getElementById('hidden_bus_id_for_status').value = busId;
-            }
-
-            // Show overlay and corresponding pop-up
-            document.getElementById('overlay').classList.add('active');
-            if (type === 'delay') {
-                document.getElementById('delayPopup').classList.add('active');
-            } else if (type === 'status') {
-                document.getElementById('statusPopup').classList.add('active');
-            }
-        }
-
-        function closePopup() {
-            document.getElementById('overlay').classList.remove('active');
-            document.getElementById('delayPopup').classList.remove('active');
-            document.getElementById('statusPopup').classList.remove('active');
-        }
-
-        function submitDelay() {
-            alert('Delay submitted');
-            closePopup();
-        }
-
-        function submitStatus() {
-            alert('Status submitted');
-            closePopup();
-        }
-    </script>
+    <script src="../js/stationmasterhandling.js"></script>
 </body>
 
 </html>
