@@ -2,3 +2,13 @@
     font-family: Quicksand;
     src: url("../fonts/static/Quicksand-Regular.ttf");
 }
+
+@font-face {
+    font-family: QuicksandSemiBold;
+    src: url("../fonts/static/Quicksand-SemiBold.ttf");
+}
+
+@font-face {
+    font-family: QuicksandBold;
+    src: url("../fonts/static/Quicksand-Bold.ttf");
+}

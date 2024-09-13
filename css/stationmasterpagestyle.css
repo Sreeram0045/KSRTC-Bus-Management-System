@@ -1,3 +1,5 @@
+@import "./fonts.css";
+
 * {
     margin: 0;
     padding: 0;
@@ -8,8 +10,12 @@
     --placeholder-color: rgb(80, 80, 80);
 }
 
+body,
+button {
+    font-family: QuicksandSemiBold;
+}
+
 body {
-    font-family: Arial, sans-serif;
     background-color: #ffffff;
     color: #333;
 }
