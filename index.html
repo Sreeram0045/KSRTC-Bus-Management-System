@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="shortcut icon" href="./assets/Designer.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/homestyle.css">
+</head>
+
+<body>
+    <section class="home-page-intro">
+        <header class="links-one">
+            <div class="link-container">
+                <a href="#">Home</a>
+                <a href="#aboutus">About</a>
+            </div>
+        </header>
+        <header class="logo-container">
+            <img src="./assets/background-removed-logo.png" alt="" class="logo-image">
+        </header>
+        <header class="links-two">
+            <div class="link-container">
+                <a href="./pages/login.html">Login</a>
+                <a href="#footer">Contact</a>
+            </div>
+        </header>
+        <div class="image-container">
+            <img src="./assets/jithu-g-thomas-ksrtc-3-removebg-preview.png" alt="" class="ksrtc-image">
+        </div>
+        <div class="content-container">
+            <div class="heading-quote-container">
+                <span class="first-sentence slide-right">YOUR COMFORT</span>
+                <span class="third-sentence slide-top">NAVIGATOR!</span>
+                <span class="second-sentence slide-right">TRAVEL</span>
+            </div>
+            <div class="form-container">
+                <form id="busDetailInput">
+                    <div class="startandendpointcontainer">
+                        <div class="select">
+                            <select name="start_point" id="start_name_id">
+                                <option selected disabled>Choose Your Starting Point</option>
+                                <option value="Thiruvananthapuram">Thiruvananthapuram (Trivandrum)</option>
+                                <option value="Kollam">Kollam</option>
+                                <option value="Pathanamthitta">Pathanamthitta</option>
+                                <option value="Alappuzha">Alappuzha (Alleppey)</option>
+                                <option value="Kottayam">Kottayam</option>
+                                <option value="Idukki">Idukki</option>
+                                <option value="Ernakulam">Ernakulam (Kochi)</option>
+                                <option value="Thrissur">Thrissur</option>
+                                <option value="Palakkad">Palakkad</option>
+                                <option value="Malappuram">Malappuram</option>
+                                <option value="Kozhikode">Kozhikode</option>
+                                <option value="Wayanad">Wayanad</option>
+                                <option value="Kannur">Kannur</option>
+                                <option value="Kasaragod">Kasaragod</option>
+                            </select>
+                        </div>
+                        <div class="select">
+                            <select name="end_point" id="end_name_id">
+                                <option selected disabled>Choose Your Stopping Point</option>
+                                <option value="Thiruvananthapuram">Thiruvananthapuram (Trivandrum)</option>
+                                <option value="Kollam">Kollam</option>
+                                <option value="Pathanamthitta">Pathanamthitta</option>
+                                <option value="Alappuzha">Alappuzha (Alleppey)</option>
+                                <option value="Kottayam">Kottayam</option>
+                                <option value="Idukki">Idukki</option>
+                                <option value="Ernakulam">Ernakulam (Kochi)</option>
+                                <option value="Thrissur">Thrissur</option>
+                                <option value="Palakkad">Palakkad</option>
+                                <option value="Malappuram">Malappuram</option>
+                                <option value="Kozhikode">Kozhikode</option>
+                                <option value="Wayanad">Wayanad</option>
+                                <option value="Kannur">Kannur</option>
+                                <option value="Kasaragod">Kasaragod</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="servicetypecontainer">
+                        <div class="select">
+                            <select name="service_type" id="service_type_id">
+                                <option selected disabled>Choose Your Service Type</option>
+                                <option value="">All</option>
+                                <option value="Swift">Swift</option>
+                                <option value="Garuda Maharaja">Garuda Maharaja</option>
+                                <option value="Minnal">Minnal</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <button class="animated-button" type="submit" name="submit_start_and_end">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="arr-2" viewBox="0 0 24 24">
+                                <path
+                                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                                </path>
+                            </svg>
+                            <span class="text">Search For a Service</span>
+                            <span class="circle"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="arr-1" viewBox="0 0 24 24">
+                                <path
+                                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                                </path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section id="result-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Bus ID</th>
+                    <th>Service</th>
+                    <th>Pickup Point</th>
+                    <th>Scheduled Reaching Time</th>
+                    <th>Drop-Off Point</th>
+                    <th>Scheduled Dropping Time</th>
+                    <th>Current Status</th>
+                    <th>Current Delay</th>
+                    <th>Know More!</th>
+                </tr>
+            </thead>
+            <tbody id="result-table-body">
+            </tbody>
+        </table>
+    </section>
+    <section id="error-container">
+    </section>
+    <section class="about-us-container" id="aboutus">
+        <div class="about-us-grid-division1">
+            <h1>About Us</h1>
+            <p>
+                Welcome to the KSRTC Bus Service Management System, providing a user-friendly platform for seamless
+                travel
+                across Kerala. Access bus schedules and service details with ease for a smooth journey.
+            </p>
+        </div>
+        <div class="about-us-grid-division2">
+            <div class="our-mission-container">
+                <div class="about-us-grid--division2-img-container">
+                    <img src="./assets/target.png" alt="Our Mission">
+                </div>
+                <p>
+                    Our mission is to connect passengers with KSRTC services, making bus travel more accessible and
+                    predictable.
+                    Search, view schedules, and track availability effortlessly.
+                </p>
+            </div>
+            <div class="key-features-container">
+                <div class="about-us-grid--division2-img-container">
+                    <img src="./assets/features.png" alt="Key Features">
+                </div>
+                <ul>
+                    <li><span>Real-Time Info:</span> Access up-to-date bus routes, stops, and schedules.</li>
+                    <li><span>Service Availability:</span> Check operational days with visual cues for easy planning.
+                    </li>
+                    <li><span>User-Friendly:</span> Simple navigation for quick access to information.</li>
+                    <li><span>Statewide Coverage:</span> Find buses from any district in Kerala.</li>
+                    <li><span>Multiple Services:</span> Includes Swift, Garuda Maharaja, Minnal services.</li>
+                </ul>
+            </div>
+            <div class="choose-us-container">
+                <div class="about-us-grid--division2-img-container">
+                    <img src="./assets/selection.png" alt="Why Choose Us?">
+                </div>
+                <div class="para-container">
+                    <p>
+                        We aim to enhance your travel experience by providing reliable and accurate real-time updates
+                        using
+                        cutting-edge technology.
+                    </p>
+                    <p>Thank you for choosing KSRTC Bus Service Management System for your travels through Kerala.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="footer-container" id="footer">
+        <div class="row1">
+            <div class="footer-header-container">
+                <div class="footer-header-container-heading-container">
+                    <h2>Our Mission</h2>
+                    <p>At KSRTC Bus Service Management System, we are committed to providing reliable, safe, and
+                        efficient transportation services across Kerala. Our goal is to make your travel experience as
+                        seamless as possible, from booking your bus to reaching your destination.</p>
+                </div>
+                <div class="footer-header-container-logo-container">
+                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512">
+                            <path fill="#fcfcfc"
+                                d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64h98.2V334.2H109.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H255V480H384c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H64z" />
+                        </svg></a>
+                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512">
+                            <path fill="#fafafa"
+                                d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" />
+                        </svg></a>
+                </div>
+            </div>
+            <div class="footer-link-container">
+                <h4>Links</h4>
+                <ul>
+                    <li>- <a href="#">Home</a></li>
+                    <li>- <a href="#">Bus Services</a></li>
+                    <li>- <a href="#aboutus">About Us</a></li>
+                    <li>- <a href="#footer">Contact Us</a></li>
+                    <li>- <a href="#footer">Terms of Service</a></li>
+                    <li>- <a href="#footer">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="row2">
+            <div class="footer-location-container">
+                <h4>Location</h4>
+                <p>KBMS Headquarters, Wayne Industries, Gotham City</p>
+                <p><i>+(541) 754-3010</i></p>
+                <p><i>info@kbms.com</i></p>
+            </div>
+            <div class="footer-copyright-container">
+                <p><small>&#169; 2024 KSRTC Bus Service Management System All rights reserved. This website is managed
+                        and operated by KSRTC, ensuring the highest standards of service for our passengers.</small>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- Your Comfort Travel Navigator! -->
+    <script src="./js/apiGetBusDetailsHandling.js"></script>
+</body>
+
+</html>
