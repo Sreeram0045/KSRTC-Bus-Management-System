@@ -34,11 +34,12 @@ JOIN
 LEFT JOIN
     status s ON b.bus_id = s.bus_id
 LEFT JOIN
-    delay d ON b.bus_id = d.bus_id AND st.station_id = d.current_station_id
+    delay d ON b.bus_id = d.bus_id  -- Removed the station condition here
 WHERE 
     st.station_name = ?
 ORDER BY 
     b.start_scheduled_time";
+
 
 $stmt = $connection->prepare($query);
 $stmt->bind_param("s", $station_name);

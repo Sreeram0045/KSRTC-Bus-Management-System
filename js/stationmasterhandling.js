@@ -36,19 +36,28 @@ const delayInput = document.getElementById('delay');
 const delayBusId = document.getElementById('hidden_bus_id_for_delay');
 const delayRegex = /^\d+$/;
 function checkInputDelay() {
-    if (delayInput.value.trim() === "") {
+    const inputValue = delayInput.value.trim();
+
+    // Check if the input is an empty string
+    if (inputValue === "") {
         delayInput.value = "";
         delayInput.placeholder = "Input can't be blank";
         delayInput.setAttribute("--placeholder-color", "red");
         return false;
-    } else if (!delayRegex.test(delayInput.value.trim())) {
+    }
+
+    // Check if the input is not a valid number (including 0)
+    if (!delayRegex.test(inputValue)) {
         delayInput.value = "";
         delayInput.placeholder = "Input can only be number";
         delayInput.setAttribute("--placeholder-color", "red");
         return false;
     }
+
+    // Allow valid numbers including 0
     return true;
 }
+
 function errorInputDelay(inputString) {
     delayInput.value = "";
     delayInput.placeholder = inputString;

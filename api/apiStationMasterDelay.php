@@ -13,7 +13,7 @@ $station_id = $_SESSION['station_master_station_id'];
 
 $response = [];
 // UPDATE delay SET delay="0",current_station_id="1" WHERE bus_id="10001";
-if (empty($bus_id) || empty($delay) || !is_numeric($delay)) {
+if (empty($bus_id) || !is_numeric($delay)) {
     $response['invalid'] = "true";
     echo json_encode($response);
 } else {
