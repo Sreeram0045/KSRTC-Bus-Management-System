@@ -537,7 +537,7 @@ table td {
     /* height: 100vh; */
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     margin-top: 2px;
     padding: 3rem 5rem;
 }
@@ -596,7 +596,7 @@ table td {
     background-color: #152F4F;
     color: var(--color-main);
     gap: 2rem;
-    border-radius: 12px;
+    /* border-radius: 12px; */
     margin-top: 2px;
 }
 
