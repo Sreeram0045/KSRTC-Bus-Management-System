@@ -1,41 +1,116 @@
 <?php
-session_start();
-if (!isset($_SESSION['logged_in']) || !$_SESSION['logged_in']) {
-    // Redirect to login if not logged in
-    header('Location: ./login.html');
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once "../connection.php";
+require_once "AdminPanel.php";
+
+$adminPanel = new AdminPanel($connection);
+
+// Handle delete request first, before any HTML output
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
+    header('Content-Type: application/json');
+    $result = $adminPanel->deleteBusService($_POST['busId']);
+    echo json_encode($result);
     exit;
 }
 
-require_once "../connection.php";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'manage_station_master') {
+    header('Content-Type: application/json');
+    try {
+        $editHtml = $adminPanel->manageStationMaster();
+        echo json_encode([
+            "success" => true,
+            "html" => $editHtml
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            "success" => false,
+            "message" => "Error loading edit form: " . $e->getMessage()
+        ]);
+    }
+    exit;
+}
 
-// Fetch bus services data including status
-$query = "SELECT 
-    b.bus_id,
-    stype.service_name,
-    st_start.station_name AS start_station,
-    b.start_scheduled_time,
-    st_end.station_name AS end_station,
-    b.end_scheduled_time,
-    COALESCE(d.delay, 0) AS current_delay,
-    COALESCE(s.state, 'No Status') AS current_status
-FROM 
-    bus b
-JOIN 
-    station st_start ON b.start_point_id = st_start.station_id
-JOIN 
-    station st_end ON b.end_point_id = st_end.station_id
-JOIN 
-    service_type stype ON b.service_id = stype.service_id
-LEFT JOIN
-    delay d ON b.bus_id = d.bus_id
-LEFT JOIN
-    status s ON b.bus_id = s.bus_id
-ORDER BY 
-    b.start_scheduled_time";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'edit') {
+    header('Content-Type: application/json');
+    try {
+        $editHtml = $adminPanel->renderEditCard($_POST['busId']);
+        echo json_encode([
+            "success" => true,
+            "html" => $editHtml
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            "success" => false,
+            "message" => "Error loading edit form: " . $e->getMessage()
+        ]);
+    }
+    exit;
+}
 
-$result = $connection->query($query);
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'input_new_bus') {
+    header('Content-Type: application/json');
+    try {
+        $editHtml = $adminPanel->renderNewBusInputForm();
+        echo json_encode([
+            "success" => true,
+            "html" => $editHtml
+        ]);
+    } catch (Exception $e) {
+        echo json_encode([
+            "success" => false,
+            "message" => "Error loading edit form: " . $e->getMessage()
+        ]);
+    }
+    exit;
+}
 
+
+// Add this right after your other POST handlers
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
+    if ($contentType === "application/json") {
+        $jsonData = file_get_contents('php://input');
+        $data = json_decode($jsonData, true);
+
+        if (isset($data['action']) && $data['action'] === 'update') {
+            header('Content-Type: application/json');
+            $result1 = $adminPanel->editBusService();
+            echo json_encode($result1);
+            exit;
+        }
+        if (isset($data['action']) && $data['action'] === 'update_station_master_password') {
+            header('Content-Type: application/json');
+            $result2 = $adminPanel->updateStationMasterPassword();
+            echo json_encode($result2);
+            exit;
+        }
+        if (isset($data['action']) && $data['action'] === 'insert_new_bus') {
+            header('Content-Type: application/json');
+            $result3 = $adminPanel->insertNewBusService();
+            $jsonError = json_last_error(); //Check for json errors
+            if ($jsonError !== JSON_ERROR_NONE) {
+                echo json_encode(['success' => false, 'message' => 'JSON Error: ' . json_last_error_msg()]);
+                exit;
+            }
+            echo json_encode($result3);
+            exit;
+        }
+    }
+}
+// Handle logout
+if (isset($_POST['logout'])) {
+    $adminPanel->logout();
+}
+
+// Fetch bus services
+$adminPanel->fetchBusServices();
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,85 +122,15 @@ $result = $connection->query($query);
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <h1>Welcome, Admin</h1>
-        <a href="home.html" class="home-button">Home</a>
-    </header>
+    <?php
+    // Render components
+    $adminPanel->renderHeader();
+    $adminPanel->renderNav();
+    $adminPanel->renderTable();
 
-    <!-- Menubar -->
-    <nav>
-        <ul>
-            <li><button id="add-service">Add Service</button></li>
-            <li><button id="manage-station-master">Manage Station Master</button></li>
-        </ul>
-    </nav>
-
-    <!-- Service Table -->
-    <section>
-        <h2>Bus Services</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Bus ID</th>
-                    <th>Service</th>
-                    <th>Pickup Point</th>
-                    <th>Scheduled Reaching Time</th>
-                    <th>Drop-Off Point</th>
-                    <th>Scheduled Dropping Time</th>
-                    <th>Current Delay</th>
-                    <th>Status</th>
-                    <th>Edit Details</th>
-                    <th>Remove Service</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                if ($result->num_rows > 0) {
-                    while ($row = $result->fetch_assoc()) {
-                        $start_time = new DateTime($row['start_scheduled_time']);
-                        $end_time = new DateTime($row['end_scheduled_time']);
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row['bus_id']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['service_name']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['start_station']) . "</td>";
-                        echo "<td>" . htmlspecialchars($start_time->format('h:i A')) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['end_station']) . "</td>";
-                        echo "<td>" . htmlspecialchars($end_time->format('h:i A')) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['current_delay']) . " min</td>";
-                        echo "<td>" . htmlspecialchars($row['current_status']) . "</td>";
-                        echo "<td><button onclick='editService(\"" . $row['bus_id'] . "\")'>Edit</button></td>";
-                        echo "<td><button onclick='removeService(\"" . $row['bus_id'] . "\")'>Remove Service</button></td>";
-                        echo "</tr>";
-                    }
-                } else {
-                    echo "<tr><td colspan='9'>No bus services found.</td></tr>";
-                }
-                ?>
-            </tbody>
-        </table>
-    </section>
-
-    <script>
-        // Functionality for Add and Delete Service Buttons
-        document.getElementById('add-service').addEventListener('click', function() {
-            alert("Add Service functionality to be implemented.");
-        });
-        document.getElementById('delete-service').addEventListener('click', function() {
-            alert("Delete Service functionality to be implemented.");
-        });
-        document.getElementById('manage-station-master').addEventListener('click', function() {
-            alert("Manage Station Master functionality to be implemented.");
-        });
-
-        function editService(busId) {
-            alert("Edit functionality for bus " + busId + " to be implemented.");
-        }
-
-        function removeService(busId) {
-            alert("Remove functionality for bus " + busId + " to be implemented.");
-        }
-    </script>
+    ?>
+    <div id="edit-form-container"></div>
+    <script src="../js/adminManage.js"></script>
 </body>
 
 </html>

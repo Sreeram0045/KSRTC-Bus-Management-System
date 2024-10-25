@@ -105,7 +105,9 @@ $result = $stmt->get_result();
         </table>
     </main>
     <footer>
-        <a href="../home.html" class="button">Home</a>
+        <form action="logout.php" method="post">
+            <button type="submit">Logout</button>
+        </form>
     </footer>
 
     <!-- Overlay -->
