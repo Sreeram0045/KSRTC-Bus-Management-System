@@ -386,15 +386,13 @@ class BusDetails
                         }
                     }
 
-                    if (nameCell) {
-                        loadSVG('../assets/destinationsvg.svg');
-                    }
+                    loadSVG('../assets/destinationsvg.svg', nameCell);
                 } catch (error) {
                     console.error("An error occurred:", error);
                 }
             }
 
-            function loadSVG(url) {
+            function loadSVG(url, nameCell) {
                 fetch(url)
                     .then(response => response.text())
                     .then(data => {
