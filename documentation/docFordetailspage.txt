@@ -1,0 +1,79 @@
+<?php
+// ... (require statements and other classes)
+?>
+
+## Class BusDetails - Documentation
+
+This class handles the retrieval, calculation, and display of bus details, including scheduled and delayed times, stops, and operating days.
+
+**Constructor:**
+
+```php
+public function __construct($connection, $bus_id)
+content_copy
+Use code with caution.
+PHP
+
+$connection: Database connection object.
+
+$bus_id: ID of the bus to retrieve details for.
+
+Methods:
+
+loadStops(): Loads the bus stops from the database, ordered by stop_order. Also finds the position of the delayed station in the stops array. Returns true on success, false otherwise.
+
+calculateTimes(): Calculates scheduled and delayed times for each stop. Requires loadStops() and loadBusData() to be called first. Returns true on success, false otherwise.
+
+renderTable(): Generates an HTML table displaying the stop order, station name, scheduled time, and expected/arrival time. Requires loadStops() and calculateTimes() to be called first. Returns true on success, false otherwise. Uses 12-hour time format (AM/PM).
+
+loadBusData(): Loads the bus data from the database, including service name, scheduled times, status, delay, and current station ID. Returns true on success, false otherwise.
+
+loadOperatingDays(): Loads the days of the week the bus operates from the database. Returns true on success, false otherwise.
+
+renderHeader(): Generates HTML for the header, displaying bus ID, service name, status, delay, and operating days. Requires loadBusData() and loadOperatingDays() to be called first. Returns true on success, false otherwise.
+
+getJavaScriptData(): Prepares data for JavaScript, including the percentage of the route completed, the current time, and an array of delayed times. Returns an array with this data or null on failure.
+
+HTML and JavaScript:
+
+The HTML section displays the bus details using the BusDetails class. It retrieves the bus ID from a POST request and uses error handling to display messages if data loading or rendering fails. The debug messages are hidden by default.
+
+The JavaScript code highlights the rows in the table where the scheduled time has passed. It uses the busPercentage, timeNow, and scheduledTimes variables passed from PHP. It also dynamically adds an SVG image to the current station cell.
+
+Key Improvements & Considerations:
+
+Error Handling: Improved error handling with try-catch blocks and specific error messages for better debugging.
+
+12-Hour Time Format: The table now displays times in a more user-friendly 12-hour format with AM/PM.
+
+Clearer Debug Messages: More descriptive debug messages added for easier troubleshooting.
+
+Efficiency: The code is generally efficient, but could be optimized further by minimizing database queries if necessary.
+
+Security: Consider sanitizing the $_POST['bus_id'] input to prevent SQL injection vulnerabilities. Use parameterized queries (as already done in the PHP code) to prevent this.
+
+JavaScript Error Handling: The JavaScript code includes basic error handling for undefined variables and missing DOM elements, enhancing robustness.
+
+Dynamic SVG Loading: The SVG is now loaded dynamically using JavaScript fetch, improving page load performance.
+
+Example Usage:
+
+// After establishing a database connection $connection and getting a $bus_id
+$busDetails = new BusDetails($connection, $bus_id);
+if ($busDetails->loadBusData() && $busDetails->loadOperatingDays() && $busDetails->loadStops() && $busDetails->calculateTimes()) {
+    $busDetails->renderHeader();
+    $busDetails->renderTable();
+    $js_data = $busDetails->getJavaScriptData();
+    // ... (Pass $js_data to JavaScript)
+} else {
+    // Handle error
+}
+content_copy
+Use code with caution.
+PHP
+
+This documentation provides a comprehensive overview of the BusDetails class and its functionality. Remember to uncomment the .debug style to see the debug messages during development. Remember to sanitize user inputs before using them in queries.
+
+This improved documentation provides a more structured and detailed explanation of the code, including the purpose of each method, its parameters, return values, and potential error conditions. It also highlights key improvements and considerations for security and efficiency.  It provides a clearer explanation of the JavaScript functionality and interaction with the PHP code. Finally, it includes an example usage snippet to demonstrate how to use the `BusDetails` class.
+content_copy
+Use code with caution.
