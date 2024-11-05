@@ -13,6 +13,10 @@ option {
     font-family: Quicksand;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 :root {
     --background-main: #a9a9a9;
     /* hsl(209, 42%, 38%) */
@@ -128,12 +132,12 @@ button {
 
 .logo-container {
     grid-area: header;
-    align-self: flex-start;
+    align-self: center;
     justify-self: center;
 }
 
 .logo-container .logo-image {
-    width: 20rem;
+    width: 15rem;
     padding: 0;
     margin: 0;
 }
@@ -187,6 +191,7 @@ button {
 
 .form-container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100%;
@@ -196,10 +201,18 @@ button {
     display: flex;
     flex-direction: column;
     background-color: var(--form-container-main);
-    padding: 2rem 3rem;
+    padding: 3rem 3rem;
     border-radius: 12px;
     gap: 2rem;
     box-shadow: var(--box-shadow-main);
+}
+
+.error-container {
+    color: rgb(244, 47, 47);
+    position: relative;
+    top: -30px;
+    font-size: large;
+    text-transform: capitalize;
 }
 
 .startandendpointcontainer {
@@ -521,7 +534,6 @@ table td {
     filter: brightness(.8);
 }
 
-#error-container,
 #result-container {
     display: none;
 }
