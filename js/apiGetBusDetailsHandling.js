@@ -31,18 +31,19 @@ async function fetchdata(event) {
 
         if (data.length === 0 || (data.length > 0 && data[0].hasOwnProperty('no_services'))) {
             // No buses available or error response
-            errorContainer.style.display = 'block';
             resultContainer.style.display = 'none';
-            errorContainer.innerHTML = "<h1>OOPS!! Sorry no data found</h1>";
+            errorContainer.style.display = 'inline';
+            errorContainer.innerHTML = "<span class='error-span'>OOPS!! Sorry no data found</span>";
             errorContainer.scrollIntoView({ behavior: 'smooth' });
         } else if (data.length === 0 || (data.length > 0 && data[0].hasOwnProperty('error_response'))) {
-            errorContainer.style.display = 'block';
             resultContainer.style.display = 'none';
-            errorContainer.innerHTML = "<h1>Invalid Submission</h1>";
+            errorContainer.style.display = 'inline';
+            errorContainer.innerHTML = "<span class='error-span'>Invalid Submission</span>";
             errorContainer.scrollIntoView({ behavior: 'smooth' });
         }
         else {
             // Buses available
+            errorContainer.innerHTML = "";
             errorContainer.style.display = 'none';
             resultContainer.style.display = 'block';
             populateTable(data);
@@ -51,9 +52,8 @@ async function fetchdata(event) {
 
     } catch (error) {
         console.error(error);
-        const errorContainer = document.getElementById("error-container");
-        errorContainer.style.display = 'block';
-        errorContainer.innerHTML = "<h1>An error occurred. Please try again.</h1>";
+        resultContainer.style.display = 'none';
+        errorContainer.innerHTML = "<span class='error-span'>An error occured. Sorry!</span>";
         errorContainer.scrollIntoView({ behavior: 'smooth' });
     }
 }

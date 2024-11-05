@@ -93,6 +93,7 @@ async function validateAndSendDelay(event) {
             if (delayResponseData['valid'] === 'true') {
                 console.log("Delay Updated Succesfully");
                 closePopup();
+                window.location.reload();
             } else {
                 console.log("Query Error");
                 errorInputDelay("Query Error");
@@ -134,11 +135,35 @@ async function validateAndSendStatus(event) {
         if (statusResponseData['success'] === 'true') {
             console.log("Status Updated");
             closePopup();
+            window.location.reload();
         } else {
             console.log("Status Updation Failed/Query Failed");
             errorStatus();
         }
     } catch (error) {
         console.log(error);
+    }
+}
+
+// Add this to your existing JavaScript or add it before the closing body tag
+async function handleLogout() {
+    try {
+        const response = await fetch('', {  // Empty string means current URL
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'action=logout'
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            window.location.href = './login.html';  // Redirect to login page
+        } else {
+            console.error('Logout failed');
+        }
+    } catch (error) {
+        console.error('Error during logout:', error);
     }
 }
