@@ -1,6 +1,6 @@
 <?php
 // connection is required
-require_once "../connection.php";
+require_once "../backend/Connection.php";
 // session started
 session_start();
 

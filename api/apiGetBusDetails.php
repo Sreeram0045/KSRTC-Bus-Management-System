@@ -1,6 +1,6 @@
 <?php
 
-require_once "../connection.php";
+require_once "../backend/Connection.php";
 
 $jsonData = file_get_contents('php://input');
 $data = json_decode($jsonData, true);
@@ -22,7 +22,7 @@ try {
 
     $connection->begin_transaction();
 
-    $query = "SELECT DISTINCT
+    $query = "SELECT DISTINCT 
     b.bus_id,
     st.service_name,
     start_station.station_name AS start_point,
@@ -31,8 +31,7 @@ try {
     b.end_scheduled_time,
     COALESCE(d.delay, 0) AS delay,
     s.state AS status
-FROM 
-    bus b
+FROM bus b
     INNER JOIN station start_station ON b.start_point_id = start_station.station_id
     INNER JOIN station end_station ON b.end_point_id = end_station.station_id
     INNER JOIN service_type st ON b.service_id = st.service_id
@@ -42,14 +41,10 @@ FROM
     INNER JOIN stop_order so_end ON b.bus_id = so_end.bus_id
     INNER JOIN station station_start ON so_start.station_id = station_start.station_id
     INNER JOIN station station_end ON so_end.station_id = station_end.station_id
-WHERE 
-    station_start.station_name = ?
+WHERE station_start.station_name = ?
     AND station_end.station_name = ?
-    AND so_start.stop_order < so_end.stop_order";
-
-    if (!empty($service_type)) {
-        $query .= "AND st.service_name = ?;";
-    }
+    AND so_start.stop_order < so_end.stop_order" .
+        (!empty($service_type) ? " AND st.service_name = ?" : "");
 
     $stmt = $connection->prepare($query);
 
@@ -65,31 +60,27 @@ WHERE
 
     $result = $stmt->get_result();
 
-    if ($result->num_rows < 0) {
+    if ($result->num_rows <= 0) {  // Changed from < 0 to <= 0
         $no_response['no_services'] = "No such route";
-        array_push($response, $no_response);
-    }
+        $response = [$no_response];  // Changed to directly set response
+    } else {
+        $response = [];  // Initialize response array
+        while ($row = $result->fetch_assoc()) {
+            $start_scheduled_time = new DateTime($row['start_scheduled_time']);
+            $end_scheduled_time = new DateTime($row['end_scheduled_time']);
 
-    while ($row = $result->fetch_assoc()) {
-        $bus_id = $row['bus_id'];
-        $service_name = $row['service_name'];
-        $start_scheduled_time = new DateTime($row['start_scheduled_time']);
-        $end_scheduled_time = new DateTime($row['end_scheduled_time']);
-        $start_point = $row['start_point'];
-        $end_point = $row['end_point'];
-        $delay = $row['delay'];
-        $status = $row['status'];
-
-        $mini_response['bus_id'] = $bus_id;
-        $mini_response['service_name'] = $service_name;
-        $mini_response['start_point'] = $start_point;
-        $mini_response['start_scheduled_time'] = $start_scheduled_time->format('h:i:sA');
-        $mini_response['end_point'] = $end_point;
-        $mini_response['end_scheduled_time'] = $end_scheduled_time->format('h:i:sA');
-        $mini_response['status'] = $status;
-        $mini_response['delay'] = $delay;
-
-        array_push($response, $mini_response);
+            $mini_response = [
+                'bus_id' => $row['bus_id'],
+                'service_name' => $row['service_name'],
+                'start_point' => $row['start_point'],
+                'start_scheduled_time' => $start_scheduled_time->format('h:i:sA'),
+                'end_point' => $row['end_point'],
+                'end_scheduled_time' => $end_scheduled_time->format('h:i:sA'),
+                'status' => $row['status'],
+                'delay' => $row['delay']
+            ];
+            $response[] = $mini_response;
+        }
     }
 
     echo json_encode($response);
