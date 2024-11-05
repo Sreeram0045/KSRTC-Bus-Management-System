@@ -1,8 +1,8 @@
 <?php
-require_once "../connection.php";
-require_once "oop.php";
-require_once "timecalculation.php";
-require_once "timedelaycalculation.php";
+require_once "../backend/Connection.php";
+require_once "../backend/TimingBetweenStopsOOP.php";
+require_once "../backend/TimeCalculation.php";
+require_once "../backend/TimeDelayCalculation.php";
 
 // Enable error reporting for debugging
 error_reporting(E_ALL);
@@ -242,7 +242,7 @@ class BusDetails
 
             echo "<div class='heading-container'>";
             echo "<h2>Details for Bus ID: {$this->bus_id} of Service Name: {$this->bus_data['service_name']}</h2>";
-            echo "<h3>Status of the Bus: " . ucfirst($this->bus_data['state']) . "</h3>";
+            echo "<h3>Status of the Bus: " . (($this->bus_data['state'] === 'active') ? "Running" : "Facing Problem") . "</h3>";
             echo "<h3>Delay of the Bus: {$this->bus_data['delay']} Min</h3>";
 
             echo "<div class='days-circles'>";

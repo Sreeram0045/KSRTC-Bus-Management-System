@@ -4,8 +4,8 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once "../connection.php";
-require_once "AdminPanel.php";
+require_once "../backend/Connection.php";
+require_once "../backend/AdminPanel.php";
 
 $adminPanel = new AdminPanel($connection);
 
@@ -119,16 +119,18 @@ $adminPanel->fetchBusServices();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KSRTC Admin Page</title>
     <link rel="stylesheet" href="../css/adminpagestyle.css">
+    <link rel="shortcut icon" href="../assets/Designer.png" type="image/x-icon">
 </head>
 
 <body>
+
     <?php
     // Render components
     $adminPanel->renderHeader();
     $adminPanel->renderNav();
     $adminPanel->renderTable();
-
     ?>
+
     <div id="edit-form-container"></div>
     <script src="../js/adminManage.js"></script>
 </body>
