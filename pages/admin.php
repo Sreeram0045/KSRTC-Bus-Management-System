@@ -129,6 +129,7 @@ $adminPanel->fetchBusServices();
     $adminPanel->renderHeader();
     $adminPanel->renderNav();
     $adminPanel->renderTable();
+    $adminPanel->renderCards();
     ?>
 
     <div id="edit-form-container"></div>
