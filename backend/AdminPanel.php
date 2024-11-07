@@ -419,7 +419,7 @@ HTML;
             }
             return [
                 'success' => false,
-                'username' => $username ?? '',
+                'username' => $username,
                 'message' => $e->getMessage()
             ];
         }
@@ -688,7 +688,40 @@ HTML;
         }
     }
 
-    // ... (rest of the class remains the same)
+    public function renderCards()
+    {
+        echo <<<HTML
+            <div id="overlay" class="overlay"></div>
+            <div id="success-box" class="success-box">
+            <div class="dot"></div>
+            <div class="dot two"></div>
+            <div class="face">
+                <div class="eye"></div>
+                <div class="eye right"></div>
+                <div class="mouth happy"></div>
+            </div>
+            <div class="shadow scale"></div>
+            <div class="message">
+                <h1 class="alert">Success!</h1>
+                <p>Yay, Work Done</p>
+            </div>
+            </div>
+            <div id="error-box" class="error-box">
+            <div class="dot"></div>
+            <div class="dot two"></div>
+            <div class="face2">
+                <div class="eye"></div>
+                <div class="eye right"></div>
+                <div class="mouth sad"></div>
+            </div>
+            <div class="shadow move"></div>
+            <div class="message">
+                <h1 class="alert">Error!</h1>
+                <p id="message-info-failure">Oh No, Something went Wrong</p>
+            </div>
+            </div>
+        HTML;
+    }
 }
 
 
