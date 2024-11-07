@@ -1,3 +1,29 @@
+const successMessage = document.getElementById('success-box');
+const failureMessage = document.getElementById('error-box');
+const overlayLayer = document.getElementById('overlay');
+function addOverlaySuccess() {
+    successMessage.classList.add('active');
+    overlayLayer.classList.add('active');
+    setTimeout(() => {
+        successMessage.classList.remove('active');
+        overlayLayer.classList.remove('active');
+    }, 2000);
+}
+
+function addOverlayFailure(message = 'Oh No, Something went Wrong') {
+    if (message !== 'Oh No, Something went Wrong') {
+        const failureContent = document.getElementById('message-info-failure');
+        failureContent.textContent = "";
+        failureContent.textContent = message;
+    }
+    failureMessage.classList.add('active');
+    overlayLayer.classList.add('active');
+    setTimeout(() => {
+        failureMessage.classList.remove('active');
+        overlayLayer.classList.remove('active');
+    }, 2000);
+}
+
 function removeService(busId) {
     if (confirm('Are you sure you want to delete this bus service?')) {
         fetch('../pages/admin.php', {
@@ -15,7 +41,7 @@ function removeService(busId) {
             })
             .then(data => {
                 if (data.success) {
-                    alert(data.message);
+                    addOverlaySuccess();
                     window.location.reload();
                 } else {
                     alert(data.message);
@@ -23,7 +49,8 @@ function removeService(busId) {
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert('An error occurred while deleting the bus service');
+                addOverlayFailure('An error occurred while deleting the bus service');
+                // alert('An error occurred while deleting the bus service');
             });
     }
 }
@@ -41,12 +68,14 @@ function editService(busId) {
             if (data.success) {
                 document.getElementById('edit-form-container').innerHTML = data.html;
             } else {
-                alert('Failed to load edit form');
+                addOverlayFailure('Failed to load edit form');
+                // alert('Failed to load edit form');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while loading the edit form');
+            addOverlayFailure('An error occurred while loading the edit form');
+            // alert('An error occurred while loading the edit form');
         });
 }
 
@@ -63,12 +92,14 @@ function manageStationMaster() {
             if (data.success) {
                 document.getElementById('edit-form-container').innerHTML = data.html;
             } else {
-                alert('Failed to load edit form');
+                addOverlayFailure('Failed to load edit form');
+                // alert('Failed to load edit form');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while loading the edit form');
+            addOverlayFailure('An error occurred while loading the edit form');
+            // alert('An error occurred while loading the edit form');
         });
 }
 
@@ -87,12 +118,14 @@ function manageNewService() {
                 // Initialize the form after it's added to the DOM
                 initializeNewBusForm();
             } else {
-                alert('Failed to load new bus form');
+                addOverlayFailure('Failed to load new bus form');
+                // alert('Failed to load new bus form');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while loading the new bus form');
+            addOverlayFailure('An error occurred while loading the new bus form');
+            // alert('An error occurred while loading the new bus form');
         });
 }
 
@@ -122,15 +155,21 @@ function editServiceInput(event) {
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                alert('Bus schedule updated successfully!');
-                window.location.reload();
+                addOverlaySuccess();
+                // alert('Bus schedule updated successfully!');
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
             } else {
-                alert('Error updating bus schedule: ' + data.message);
+                console.log(data.message);
+                addOverlayFailure('Error updating bus schedule, Sorry for the Inconvenience');
+                // alert('Error updating bus schedule: ' + data.message);
             }
         })
         .catch(error => {
             console.error('Error: ', error);
-            alert('An error occurred while updating the bus schedule');
+            addOverlayFailure('An error occurred while updating the bus schedule');
+            // alert('An error occurred while updating the bus schedule');
         });
 }
 
@@ -190,15 +229,21 @@ function stationMasterManageInputReturn(event) {
         })
         .then(data => {
             if (data.success) {
+                addOverlaySuccess();
                 alert(`Password updated successfully for ${data.username}`);
-                window.location.reload();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2500);
             } else {
-                alert(`Error updating ${data.username}'s password: ${data.message}`);
+                addOverlayFailure(`Error updating ${data.username}'s password`);
+                console.log(`Error updating ${data.username}'s password: ${data.message}`);
+                // alert(`Error updating ${data.username}'s password: ${data.message}`);
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('An error occurred while updating the password of station master');
+            addOverlayFailure('An error occurred while updating the password of station master');
+            // alert('An error occurred while updating the password of station master');
         });
 }
 
@@ -368,18 +413,20 @@ function initializeNewBusForm() {
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('Bus service added successfully!');
-                        window.location.reload();
+                        addOverlaySuccess();
+                        // alert('Bus service added successfully!');
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 2500);
                     } else {
                         alert('Error: ' + data.message);
                     }
                 })
                 .catch(error => {
                     console.log('Error:', error);
-                    alert('An error occurred while adding the bus service');
+                    addOverlayFailure('An error occurred while adding the bus service');
+                    // alert('An error occurred while adding the bus service');
                 });
         });
     }
 }
-
-// ... (rest of the previous code remains the same)
