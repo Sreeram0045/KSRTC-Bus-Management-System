@@ -42,8 +42,11 @@ function removeService(busId) {
             .then(data => {
                 if (data.success) {
                     addOverlaySuccess();
-                    window.location.reload();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2500);
                 } else {
+                    addOverlayFailure("Sorry an error occured while deleting the bus service");
                     alert(data.message);
                 }
             })
