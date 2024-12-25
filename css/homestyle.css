@@ -18,7 +18,9 @@ body {
 }
 
 :root {
-    --background-main: #a9a9a9;
+    /* --background-main: #a9a9a9; */
+    /* --background-main: #e0e0e0; */
+    --background-main: #DFF2EB;
     /* hsl(209, 42%, 38%) */
     --color-main: #fff;
     --color-header-quote: #111010;
@@ -109,7 +111,8 @@ button {
 
     a {
         text-decoration: none;
-        color: var(--color-main);
+        /* color: var(--color-main); */
+        color: var(--color-header-quote);
         font-size: 20px;
         letter-spacing: 3px;
         text-transform: uppercase;
@@ -372,7 +375,8 @@ select::-ms-expand {
     height: 50vh;
     width: 100%;
     padding: 2rem;
-    background-color: hsl(210, 29%, 24%);
+    /* background-color: hsl(210, 29%, 24%); */
+    background-color: #B9E5E8;
     /* Dark background for contrast */
     /* box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); */
     margin-top: 2px;
@@ -544,7 +548,8 @@ table td {
     gap: 1rem;
     color: var(--color-main);
     /* background-color: hsl(215, 81%, 63%); */
-    background-color: hsl(210, 29%, 30%);
+    /* background-color: hsl(210, 29%, 30%); */
+    background-color: #7AB2D3;
     /* width: 100vw; */
     /* height: 100vh; */
     width: 100%;
@@ -605,7 +610,8 @@ table td {
     display: grid;
     grid-template-rows: repeat(2, 1fr);
     padding: 5rem 3rem;
-    background-color: #152F4F;
+    /* background-color: #152F4F; */
+    background-color: #4A628A;
     color: var(--color-main);
     gap: 2rem;
     /* border-radius: 12px; */

@@ -320,14 +320,14 @@ body {
     padding: 10px 20px;
     margin: 10px;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #8000ff;
     color: white;
     text-decoration: none;
     transition: background-color 0.3s ease;
 }
 
 .button-container:hover {
-    background-color: #0056b3;
+    background-color: #8916fb;
 }
 
 .button-container a {
